@@ -1,0 +1,25 @@
+{
+    "Login": "ログイン",
+    "Register": "新規登録",
+    "Logout": "ログアウト",
+    "E-Mail Address": "メールアドレス",
+    "Password": "パスワード",
+    "Remember Me": "ログイン情報を記憶する",
+    "Forgot Your Password?": "パスワードを忘れましたか？",
+    "Name": "名前",
+    "Student Number": "学籍番号",
+    "Confirm Password": "パスワードの確認",
+    "Verify Your Email Address": "メールアドレスを確認してください。",
+    "A fresh verification link has been sent to your email address.":
+        "新しい登録リンクが入力したメールアドレスに送信されました。",
+    "Before proceeding, please check your email for a verification link.":
+        "続行する前に受信したメールのリンクを確認してください。",
+    "If you did not receive the email": "メールが届いていない場合",
+    "click here to request another": 
+        "別のメールアドレスを入力する場合、ここをクリックしてください。",
+    "Please confirm your password before continuing.":
+        "続行する前にパスワードを確認してください。",
+    "Reset Password?": "パスワードを再設定しますか？",
+    "Send Password Reset Link": "再設定メールを送信する",
+    "Reset Password": "パスワードを再設定する"
+}
