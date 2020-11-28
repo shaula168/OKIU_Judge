@@ -38,7 +38,8 @@ class ClassroomsController extends Controller
                 $join->on('tasks.id', '=', 'A.task_id')
                     ->where([
                         ['tasks.class_id', $classroom->id],
-                        ['A.is_first_correct', true]
+                        ['A.is_first_correct', true],
+                        [DB::raw('date(tasks.deadline) >= date(A.created_at)')]
                     ])
                     ->selectRaw('A.id, A.task_id, A.member_id, A.submit_cnt');
             })
