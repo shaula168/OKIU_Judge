@@ -63,7 +63,7 @@ class Submission extends Model
             ->selectRaw('max(submit_cnt) as submit_cnt')
             ->value('submit_cnt');
 
-        if (is_null($submit_cnt))
+        if (is_null($submit_cnt) || $member->is_teacher)
             $submit_cnt = 0;
 
         // Submission を登録
@@ -88,7 +88,7 @@ class Submission extends Model
             $judge = 1;
         
         // 初正解なら is_first_correct を更新
-        if (Submission::is_first_correct($task_id, $member->id) && $judge == 1)
+        if (Submission::is_first_correct($task_id, $member->id) && $judge == 1 && !($member->is_teacher))
             $submit->is_first_correct = true;
 
         $submit->stdout = rtrim($response->stdout);

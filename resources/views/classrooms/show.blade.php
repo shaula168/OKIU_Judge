@@ -44,7 +44,7 @@
                                         {{ $task->deadline }}
                                     </td>
                                     <td class="text-center align-middle">
-                                        {{ $task->correct_cnt - 1 }}
+                                        {{ $task->correct_cnt }}
                                     </td>
                                     <td class="text-center align-middle">
                                         {{ round($task->submit_avg, 2) }}
