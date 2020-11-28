@@ -34,8 +34,19 @@ class ClassroomsController extends Controller
 
         // 問題一覧
         $tasks = DB::table('tasks')
-            ->select('id', 'title', 'deadline')
-            ->where('class_id', $classroom->id)
+            ->leftJoin('submissions as A', function ($join) {
+                $join->on('tasks.id', '=', 'A.task_id')
+                    ->where([
+                        ['A.is_first_correct', true],
+                        [DB::raw('(SELECT is_teacher FROM class__members WHERE id = A.member_id) = FALSE')]
+                    ])
+                    ->select('A.id', 'A.task_id', 'A.member_id', 'A.submit_cnt');
+            })
+            ->where('tasks.class_id', $classroom->id)
+            ->groupBy('tasks.id')
+            ->selectRaw('tasks.id as id, tasks.title as title, tasks.deadline as deadline,
+                        count(tasks.id) as correct_cnt, avg(A.submit_cnt) as submit_avg')
+            ->distinct('tasks.id')
             ->get();
 
         // 生徒一覧

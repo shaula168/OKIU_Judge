@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 class Submission extends Model
 {
     protected $fillable = [
-        'task_id', 'member_id', 'code_txt', 'code_txt',
-        'cmpinfo', 'stderr', 'result', 'is_first_correct'
+        'task_id', 'member_id', 'code_txt', 'code_txt', 'cmpinfo',
+        'stderr', 'result', 'is_first_correct', 'submit_cnt'
     ];
 
     // 改行コードを変更する
@@ -55,11 +55,23 @@ class Submission extends Model
         $code = json_encode($data['code'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
         $code = substr($code, 1, -1);
 
+        $submit_cnt = DB::table('submissions')
+            ->where([
+                ['task_id', $task_id],
+                ['member_id', $member->id]
+            ])
+            ->selectRaw('max(submit_cnt) as submit_cnt')
+            ->value('submit_cnt');
+
+        if (is_null($submit_cnt))
+            $submit_cnt = 0;
+
         // Submission を登録
         $submit = Submission::create([
-            'task_id'   => $task_id,
-            'member_id' => $member->id,
-            'code_txt'  => $code,
+            'task_id'    => $task_id,
+            'member_id'  => $member->id,
+            'code_txt'   => $code,
+            'submit_cnt' => $submit_cnt + 1
         ]);
 
         // Task に模範解答として登録

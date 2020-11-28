@@ -27,7 +27,12 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
-                            <tr><th>問題タイトル</th><th>提出期限</th></tr>
+                            <tr class="text-center">
+                                <th class="align-middle">問題タイトル</th>
+                                <th class="align-middle" style="width: 18%">提出期限</th>
+                                <th class="align-middle" style="width: 15%">合格者数</th>
+                                <th class="align-middle" style="width: 17%">合格までの平均提出数</th>
+                            </tr>
                             @foreach ($tasks as $task)
                                 <tr>
                                     <td>
@@ -35,8 +40,14 @@
                                             {{ $task->title }}
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="text-center align-middle">
                                         {{ $task->deadline }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ $task->correct_cnt - 1 }}
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        {{ round($task->submit_avg, 2) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -49,11 +60,11 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
-                            <tr><th>名前</th><th>学籍番号</th></tr>
+                            <tr><th class="w-50">名前</th><th class="w-50">学籍番号</th></tr>
                             @foreach ($members as $member)
                                 <tr>
-                                    <td>{{ $member->name }}</td>
-                                    <td>{{ $member->student_number }}</td>
+                                    <td class="w-50">{{ $member->name }}</td>
+                                    <td class="w-50">{{ $member->student_number }}</td>
                                 </tr>
                             @endforeach
                         </table>
