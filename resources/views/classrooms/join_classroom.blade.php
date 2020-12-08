@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('join_classroom') }}
+@endsection
+
+@section('message')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -15,6 +19,9 @@
             {{ session('status') }}
         </div>
     @endif
+@endsection
+
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">

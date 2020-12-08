@@ -229,7 +229,7 @@ class TasksController extends Controller
     public function answer($class_id, $task_id)
     {
         $classroom = Classroom::findOrFail($class_id);
-        $task = Task::select('id', 'model_answer', 'deadline')
+        $task = Task::select('id', 'title', 'model_answer', 'deadline')
             ->where([['id', $task_id], ['class_id', $class_id]])
             ->firstOrFail();
         $member = Class_Member::get_member($classroom->id);
@@ -266,7 +266,7 @@ class TasksController extends Controller
     public function standings($class_id, $task_id)
     {
         $classroom = Classroom::findOrFail($class_id);
-        $task = Task::select('id', 'deadline')
+        $task = Task::select('id', 'title', 'deadline')
             ->where([['id', $task_id], ['class_id', $class_id]])
             ->firstOrFail();
         $member = Class_Member::get_member($classroom->id);

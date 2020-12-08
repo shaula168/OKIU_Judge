@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('create_classroom') }}
+@endsection
+
+@section('message')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -10,6 +14,9 @@
             </ul>
         </div>
     @endif
+@endsection
+
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
@@ -28,7 +35,7 @@
                                 <label for="title" class="col-md-4 col-form-label text-md-right"><span class="text-danger">※</span>クラス名</label>
                                 <div class="col-md-6">
                                     <input type="text" name="title" id="title" class="w-100">
-                                    <span id="title" class="form-text text-muted">1~20文字以内</span>
+                                    <span id="title" class="form-text text-muted">1~50文字以内</span>
                                 </div>
                             </div>
 
