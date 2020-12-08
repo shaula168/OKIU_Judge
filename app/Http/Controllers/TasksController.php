@@ -177,6 +177,7 @@ class TasksController extends Controller
         $classroom = Classroom::findOrFail($class_id);
         $task = Task::get_task($task_id, $class_id);
         $member = Class_Member::get_member($classroom->id);
+        $is_teacher = $member->is_teacher;
 
         if ($member->is_teacher && !is_null($request['member_id'])) {
             $member_id = $request->validate([
@@ -190,7 +191,7 @@ class TasksController extends Controller
 
         return view('tasks.submissions', [
             'classroom'   => $classroom,
-            'is_teacher'  => $member->is_teacher,
+            'is_teacher'  => $is_teacher,
             'task'        => $task,
             'submissions' => $submissions
         ]);
@@ -208,6 +209,7 @@ class TasksController extends Controller
         $submit = Submission::where([['id', $submit_id], ['task_id', $task->id]])
             ->firstOrFail();
         $member = Class_Member::get_member($classroom->id);
+        $is_teacher = $member->is_teacher;
 
         if($submit->member_id != $member->id && !($member->is_teacher)) {
             abort('403');
@@ -215,7 +217,7 @@ class TasksController extends Controller
 
         return view('tasks.show_submit', [
             'classroom'  => $classroom,
-            'is_teacher' => $member->is_teacher,
+            'is_teacher' => $is_teacher,
             'task'       => $task,
             'submit'     => $submit
         ]);
@@ -233,6 +235,7 @@ class TasksController extends Controller
             ->where([['id', $task_id], ['class_id', $class_id]])
             ->firstOrFail();
         $member = Class_Member::get_member($classroom->id);
+        $is_teacher = $member->is_teacher;
 
         $deadline = new Carbon($task->deadline);
         $is_correct_task = Submission::where([
@@ -250,7 +253,7 @@ class TasksController extends Controller
 
             return view('tasks.answer', [
                 'classroom'  => $classroom,
-                'is_teacher' => $member->is_teacher,
+                'is_teacher' => $is_teacher,
                 'task'       => $task,
                 'submission' => $submission
             ]);
@@ -270,6 +273,7 @@ class TasksController extends Controller
             ->where([['id', $task_id], ['class_id', $class_id]])
             ->firstOrFail();
         $member = Class_Member::get_member($classroom->id);
+        $is_teacher = $member->is_teacher;
 
         $standings = Submission::get_standings($task->id, $member->id);
         $my_standing = Submission::get_my_standing($task->id, $member->id);
@@ -277,7 +281,7 @@ class TasksController extends Controller
         //////////////////////////////////
         return view('tasks.standings', [
             'classroom'   => $classroom,
-            'is_teacher'  => $member->is_teacher,
+            'is_teacher'  => $is_teacher,
             'task'        => $task,
             'standings'   => $standings,
             'my_standing' => $my_standing
