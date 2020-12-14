@@ -61,7 +61,7 @@
                                             <span class="badge badge-secondary">教師ユーザー</span>
                                         @endif
                                     </div>
-                                    {{ $issue->statement }}
+                                    {{!! nl2br(e($issue->statement)) !!}}
                                 </div>
                             </div>
                         @endforeach
