@@ -72,6 +72,7 @@
                             editor.getSession().setMode("ace/mode/java");
                             editor.getSession().setUseWrapMode(true);
                             editor.getSession().setTabSize(2);
+                            editor.setValue('{{ $task->code_tmp }}');
                         </script>
                         @if ($is_teacher)
                             <script>

@@ -36,6 +36,7 @@ class TasksController extends Controller
             'title'     => ['required', 'string', 'max:50'],
             'statement' => ['required', 'string', 'max:800'],
             'hint'      => ['nullable', 'string', 'max:800'],
+            'code_tmp'  => ['nullable', 'string', 'max:5000'],
             'input'     => ['nullable', 'string', 'max:2500'],
             'output'    => ['required', 'string', 'max:2500'],
             'deadline'  => ['nullable', 'date']
@@ -57,7 +58,7 @@ class TasksController extends Controller
     public function show($class_id, $task_id)
     {
         $classroom = Classroom::findOrFail($class_id);
-        $task = Task::select('id', 'title', 'statement', 'hint', 'model_answer', 'deadline')
+        $task = Task::select('id', 'title', 'statement', 'hint', 'model_answer', 'code_tmp', 'deadline')
             ->where([['id', $task_id], ['class_id', $class_id]])
             ->firstOrFail();
 
@@ -98,6 +99,7 @@ class TasksController extends Controller
             'title'     => ['required', 'string', 'max:50'],
             'statement' => ['required', 'string', 'max:800'],
             'hint'      => ['nullable', 'string', 'max:800'],
+            'code_tmp'  => ['nullable', 'string', 'max:5000'],
             'input'     => ['nullable', 'string', 'max:2500'],
             'output'    => ['required', 'string', 'max:2500'],
             'deadline'  => ['nullable', 'date']
