@@ -240,6 +240,7 @@ class TasksController extends Controller
         $is_teacher = $member->is_teacher;
 
         $deadline = new Carbon($task->deadline);
+        $deadline = new Carbon($deadline->addDay());   // 締め切り日も期限内に含める処置
         $is_correct_task = Submission::where([
             ['task_id', $task->id],
             ['member_id', $member->id],
@@ -310,13 +311,15 @@ class TasksController extends Controller
         $status_lists = Submission::get_status_lists($classroom->id, $task->id);
 
         $deadline = null;
-        if (!is_null($task->deadline))
+        if (!is_null($task->deadline)) {
             $deadline = new Carbon($task->deadline);
+            $deadline = new Carbon($deadline->addDay());   // 締め切り日も期限内に含める処置
+        }
 
         for ($i = 0; $i < count($status_lists); $i++) {
             $submit_day = new Carbon($status_lists[$i]->created_at);
 
-            if (is_null($deadline) || $deadline->lt($submit_day)) {
+            if (is_null($deadline) || $submit_day->lt($deadline)) {
                 $status_lists[$i]->is_pass = true;
             } else {
                 $status_lists[$i]->is_pass = false;
