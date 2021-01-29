@@ -161,7 +161,7 @@ class Submission extends Model
                 $join->on('class__members.user_id', '=', 'users.id');
             })
             ->select('users.name', 'users.student_number', 'submissions.created_at')
-            ->orderByDesc('submissions.created_at')
+            ->orderBy('submissions.created_at', 'asc')
             ->limit(3)
             ->get();
 
