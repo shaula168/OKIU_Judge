@@ -35,7 +35,8 @@ class Submission extends Model
         $post_data = json_encode($post_data);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "jobe/jobe/index.php/restapi/runs");
+        $jobe_address = config('my-app.jobe_address');
+        curl_setopt($ch, CURLOPT_URL, "$jobe_address/jobe/index.php/restapi/runs");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch,CURLOPT_POST, true);
